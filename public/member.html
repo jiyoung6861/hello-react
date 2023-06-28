@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+    <link rel="stylesheet" href="member.css">
+</head>
+<body>
+    <h1><u>Join</u></h1>
+    <form id="register-form">
+        <label for="newemail">본인 확인 이메일:</label>
+        <input type="email" id="new-em" name="new-email">
+        <button onclick="alert('인증메일이 전송되었습니다. 메일함을 확인해주세요.')" type="submit">인증메일 전송</button>
+        <br><br>
+        <label for="new-pw">비밀번호:</label>
+        <input type="password" id="new-pw" name="new-pw">
+        <br><br>
+        <label for="newname">이름:</label>
+        <input type="text" id="new-nm" name="new-name">
+        <br><br>
+        <label for="age">나이:</label>
+        <input type="number" id="age" name="age" min="1" max="100">
+        <br><br>
+        <label for="male">성별:</label>
+        <label>
+            <input type="radio" id="male" name="gender" value="male">
+            <span>남성</span>
+            <input type="radio" id="female" name="gender" value="female">
+            <span>여성</span>
+        </label>
+        <button onclick="alert('회원가입이 완료되었습니다.')" type="submit">회원가입 하기</button>
+    </form>
+
+    <script>
+        var verificationTimer; // 타이머 변수
+
+        function sendVerificationEmail() {
+            // 인증메일 전송 로직을 추가하세요.
+            // 인증메일이 성공적으로 전송되면 타이머를 시작합니다.
+            startTimer();
+        }
+
+        function startTimer() {
+            var minutes = 10; // 타이머 시간 (분)
+            var seconds = 0; // 타이머 시간 (초)
+
+            // 타이머가 갱신되는 함수
+            function updateTimer() {
+                var timerDisplay = document.getElementById("timer");
+
+                if (minutes === 0 && seconds === 0) {
+                    clearInterval(verificationTimer);
+                    timerDisplay.textContent = "타이머 종료";
+                    alert("인증시간이 초과되었습니다.");
+                    return;
+                }
+
+                if (seconds === 0) {
+                    minutes--;
+                    seconds = 59;
+                } else {
+                    seconds--;
+                }
+
+                // 0을 포함한 2자리 숫자로 표시하기 위해 앞에 0을 추가
+                var formattedMinutes = String(minutes).padStart(2, "0");
+                var formattedSeconds = String(seconds).padStart(2, "0");
+
+                timerDisplay.textContent = formattedMinutes + ":" + formattedSeconds;
+            }
+
+            updateTimer(); // 초기값 표시
+
+            verificationTimer = setInterval(updateTimer, 1000); // 1초마다 타이머 갱신
+        }
+
+        function handleCreateAccount() {
+            // 회원가입 처리 로직을 추가하기
+            // 회원가입이 완료되면 index.html로 이동
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
